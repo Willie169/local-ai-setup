@@ -42,3 +42,16 @@ bashrc
 rm -rf ~/.local-llm-setup
 git clone --depth=1 https://github.com/Willie169/local-llm-setup ~/.local-llm-setup
 ```
+
+update
+
+```
+update_llm() {
+  (
+    cd ~/.local-llm-setup || exit
+    git reset --hard
+    git pull --rebase
+    git clean -fd
+  )
+}
+```
