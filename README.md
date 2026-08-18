@@ -2,62 +2,30 @@
 
 This repo contains my local LLM setup.
 
+Add to `~/.bashrc`:
+```
+export HF_TOKEN=<your_huggingface_token>
+. "$HOME/.local-llm-setup/bashrc.sh"
+```
+
 ## llama.cpp
 
-TODO
-
-### Runtime
-
+The script uses CUDA backend.
 ```
-CUDA_SCALE_LAUNCH_QUEUES=4x GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
+./llama-cpp.sh
 ```
 
-## Download
+## Download Models
 
 ```
-mkdir ~/hf-models
-```
-Put to `~/.bashrc`:
-```
-export HF_HOME="$HOME/hf-models"
+export HF_TOKEN=<your_huggingface_token>
+./download-models.sh
 ```
 
-```
-export HF_HOME="$HOME/hf-models"
-./download.sh
-```
-
-### Aliases
+## llama-swap
 
 ```
-source ~/.local-llm-setup/aliases.sh
+./llama-swap.sh
 ```
 
-
-
-
-bashrc
-
-```
-rm -rf ~/.local-llm-setup
-git clone --depth=1 https://github.com/Willie169/local-llm-setup ~/.local-llm-setup
-```
-
-update
-
-```
-update_llm() {
-  (
-    cd ~/.local-llm-setup || exit
-    git reset --hard
-    git pull --rebase
-    git clean -fd
-  )
-}
-```
-
-supply -ngl, use https://huggingface.co/spaces/oobabooga/accurate-gguf-vram-calculator
-
-
-supply -rea
-
+TODO model config from bashrc to llama swap, open notebook.

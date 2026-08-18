@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export PATH="$HOME/llama.cpp/build/bin:${PATH:-}"
 export HF_HOME="$HOME/hf-models"
 
 update_llm() {
@@ -8,6 +9,13 @@ update_llm() {
     git reset --hard
     git pull --rebase
     git clean -fd
+  )
+}
+
+open-notebook() {
+  (
+    cd ~/open-notebook || exit
+    docker compose "$@"
   )
 }
 

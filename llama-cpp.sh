@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd ~ || exit
+sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install libssl-dev -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git clone https://github.com/ggml-org/llama.cpp
 cd llama.cpp || exit

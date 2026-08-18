@@ -1,25 +1,51 @@
 #!/usr/bin/env bash
 
 mkdir ~/open-notebook
-cat >~/open-notebook/docker-compose.yml <<EOF
+cat >~/open-notebook/docker-compose.yml <<'EOF'
 services:
   surrealdb:
     image: surrealdb/surrealdb:v2
-    command: start --log info --user root --pass root rocksdb:/mydata/mydatabase.db
-    user: root
-    network_mode: host
+    # Credentials default to root:root for a zero-config local setup. Before
+    # exposing this instance to a network, set SURREAL_USER / SURREAL_PASSWORD
+    # in a .env file (see .env.example) — they are applied here and to the
+    # open_notebook service below, so the two always stay in sync.
+    # List (exec) form so each interpolated value stays a single argument —
+    # a password containing spaces would otherwise be split into several.
+    command: ["start", "--log", "info", "--user", "${SURREAL_USER:-root}", "--pass", "${SURREAL_PASSWORD:-root}", "rocksdb:/mydata/mydatabase.db"]
+    user: root  # Required for bind mounts on Linux
+    ports:
+      # Bound to localhost only: the open_notebook service reaches this over
+      # the internal compose network regardless, so the host port is purely
+      # for local debugging (e.g. Surrealist, `surreal sql`). Exposing this
+      # on 0.0.0.0 would let anyone who can reach the host connect with the
+      # default root:root credentials.
+      - "127.0.0.1:8000:8000"
     volumes:
       - ./surreal_data:/mydata
+    environment:
+      - SURREAL_EXPERIMENTAL_GRAPHQL=true
     restart: always
+    pull_policy: always
 
   open_notebook:
     image: lfnovo/open_notebook:v1-latest
-    network_mode: host
+    ports:
+      - "8502:8502"  # Web UI
+      - "5055:5055"  # REST API
     environment:
-      - OPEN_NOTEBOOK_ENCRYPTION_KEY=change-me-to-a-secret-string
-      - SURREAL_URL=ws://localhost:8000/rpc
-      - SURREAL_USER=root
-      - SURREAL_PASSWORD=root
+      # REQUIRED: Change this to your own secret string
+      # This encrypts your API keys in the database
+EOF
+cat >>~/open-notebook/docker-compose.yml <<EOF
+      - OPEN_NOTEBOOK_ENCRYPTION_KEY=$1
+EOF
+cat >>~/open-notebook/docker-compose.yml <<'EOF'
+      # Database connection. SURREAL_USER / SURREAL_PASSWORD default to root:root
+      # for local use; override them in a .env file before exposing the instance
+      # (the same values configure the surrealdb service above).
+      - SURREAL_URL=ws://surrealdb:8000/rpc
+      - SURREAL_USER=${SURREAL_USER:-root}
+      - SURREAL_PASSWORD=${SURREAL_PASSWORD:-root}
       - SURREAL_NAMESPACE=open_notebook
       - SURREAL_DATABASE=open_notebook
     volumes:
@@ -27,25 +53,7 @@ services:
     depends_on:
       - surrealdb
     restart: always
+    pull_policy: always
 EOF
 cd ~/open-notebook || exit
 docker compose pull
-cd ~ || exit
-cat >~/.config/systemd/user/open-notebook.service <<EOF
-[Unit]
-Description=Open Notebook
-Requires=docker.service
-After=docker.service
-
-[Service]
-WorkingDirectory=$HOME/open-notebook
-ExecStart=/usr/bin/docker compose up
-ExecStop=/usr/bin/docker compose stop
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=default.target
-EOF
-systemctl --user daemon-reload
-systemctl --user enable --now open-notebook

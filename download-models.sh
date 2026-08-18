@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export HF_HOME="$HOME/hf-models"
 hf download unsloth/Qwen3.5-9B-GGUF Qwen3.5-9B-Q4_K_M.gguf
 hf download unsloth/Qwen3.5-9B-GGUF mmproj-BF16.gguf
 hf download unsloth/Qwen3.5-4B-GGUF Qwen3.5-4B-Q4_K_M.gguf
