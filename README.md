@@ -28,4 +28,4 @@ export HF_TOKEN=<your_huggingface_token>
 ./llama-swap.sh
 ```
 
-TODO model config from bashrc to llama swap, open notebook.
+TODO model config from bashrc to llama-swap -config, open notebook.
