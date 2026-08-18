@@ -30,5 +30,15 @@ export HF_HOME="$HOME/hf-models"
 ### Aliases
 
 ```
-source aliases.sh
+source ~/.local-llm-setup/aliases.sh
+```
+
+
+
+
+bashrc
+
+```
+rm -rf ~/.local-llm-setup
+git clone --depth=1 https://github.com/Willie169/local-llm-setup ~/.local-llm-setup
 ```
