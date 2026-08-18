@@ -55,3 +55,9 @@ update_llm() {
   )
 }
 ```
+
+supply -ngl, use https://huggingface.co/spaces/oobabooga/accurate-gguf-vram-calculator
+
+
+supply -rea
+
