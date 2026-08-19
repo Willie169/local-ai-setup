@@ -2,6 +2,8 @@
 
 export PATH="$HOME/llama.cpp/build/bin:${PATH:-}"
 export HF_HOME="$HOME/hf-models"
+export CUDA_SCALE_LAUNCH_QUEUES=4x
+export GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
 
 update_llm() {
   (

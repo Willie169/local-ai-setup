@@ -1,0 +1,57 @@
+globalTTL: 600
+macros:
+  "default_llama": llama-server --port ${PORT} -t 12 -c 20480 -fa on -fit on -fiit 10240 --jinja --metrics --slots
+  "qwen_draft": -hfd unsloth/Qwen3.5-2B-GGUF:Q4_K_M --spec-draft-n-max 16
+  "qwen_think": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
+  "qwen_think_code": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
+  "qwen_instruct": --temp 0.7 --top-p 0.8 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
+  "qwen_instruct_reasoning": --temp 1.0 --top-p 1.0 --top-k 40 --min-p 0.0 --presence-penalty 2.0 --repeat-penalty 1.0 ${qwen_draft}
+models:
+  "Qwen3.5-9B-think":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think} 
+    name: "Qwen3.5-9B-think"
+  "Qwen3.5-9B-think-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think} -rea off 
+    name: "Qwen3.5-9B-think-reaoff"
+  "Qwen3.5-9B-think-code":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think_code}
+    name: "Qwen3.5-9B-think-code"
+  "Qwen3.5-9B-think-code-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think_code} -rea off
+    name: "Qwen3.5-9B-think-code-reaoff"
+  "Qwen3.5-9B-instruct":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct}
+    name: "Qwen3.5-9B-instruct"
+  "Qwen3.5-9B-instruct-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct} -rea off
+    name: "Qwen3.5-9B-instruct-reaoff"
+  "Qwen3.5-9B-instruct-reasoning":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct_reasoning}
+    name: "Qwen3.5-9B-instruct-reasoning"
+  "Qwen3.5-9B-instruct-reasoning-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct_reasoning} -rea off
+    name: "Qwen3.5-9B-instruct-reasoning-reaoff"
+  "Qwen3.5-4B-think":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think} 
+    name: "Qwen3.5-4B-think"
+  "Qwen3.5-4B-think-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think} -rea off 
+    name: "Qwen3.5-4B-think-reaoff"
+  "Qwen3.5-4B-think-code":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think_code}
+    name: "Qwen3.5-4B-think-code"
+  "Qwen3.5-4B-think-code-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think_code} -rea off
+    name: "Qwen3.5-4B-think-code-reaoff"
+  "Qwen3.5-4B-instruct":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct}
+    name: "Qwen3.5-4B-instruct"
+  "Qwen3.5-4B-instruct-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct} -rea off
+    name: "Qwen3.5-4B-instruct-reaoff"
+  "Qwen3.5-4B-instruct-reasoning":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct_reasoning}
+    name: "Qwen3.5-4B-instruct-reasoning"
+  "Qwen3.5-4B-instruct-reasoning-reaoff":
+    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct_reasoning} -rea off
+    name: "Qwen3.5-4B-instruct-reasoning-reaoff"
