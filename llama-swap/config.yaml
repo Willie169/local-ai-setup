@@ -1,57 +1,83 @@
 globalTTL: 600
 macros:
-  "default_llama": llama-server --port ${PORT} -t 12 -c 30720 -ngl all -fa on -fit off --jinja --metrics --slots -lv 5
-  "qwen_draft": -hfd unsloth/Qwen3.5-2B-GGUF:Q4_K_M --spec-draft-n-max 16
-  "qwen_think": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
-  "qwen_think_code": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
-  "qwen_instruct": --temp 0.7 --top-p 0.8 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
-  "qwen_instruct_reasoning": --temp 1.0 --top-p 1.0 --top-k 40 --min-p 0.0 --presence-penalty 2.0 --repeat-penalty 1.0 ${qwen_draft}
+  "default_llama": llama-server --port ${PORT} -t 12 -c 30720 -ngl all -fa on -fit off --jinja --metrics --slots
+  "no_thinking": -rea off
+  "qwen35_draft": -hfd unsloth/Qwen3.5-2B-GGUF:Q4_K_M --spec-draft-n-max 4 --spec-draft-ngl all --spec-type ngram-mod --spec-ngram-mod-n-match 24
+  "qwen35_9b": -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen35_draft}
+  "qwen35_4b": -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen35_draft}
+  "qwen35_think": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0
+  "qwen35_think_code": --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 0.0 --repeat-penalty 1.0
+  "qwen35_instruct": --temp 0.7 --top-p 0.8 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0
+  "qwen35_instruct_reasoning": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0
+  "gemma_4_draft": --spec-draft-n-max 4 --spec-draft-ngl all --spec-type draft-mtp
+  "gemma_4_12b": -hf unsloth/gemma-4-12B-it-qat-GGUF:UD-Q4_K_XL ${gemma_4_draft}
+  "gemma_4_e4b": -hf unsloth/gemma-4-E4B-it-qat-GGUF:UD-Q4_K_XL ${gemma_4_draft}
+  "gemma_4_e2b": -hf unsloth/gemma-4-E2B-it-qat-GGUF:UD-Q4_K_XL ${gemma_4_draft}
+  "gemma_4_": --temp 1.0 --top-p 0.95 --top-k 64
 models:
   "Qwen3.5-9B-think":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think} 
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_think} 
     name: "Qwen3.5-9B-think"
-  "Qwen3.5-9B-think-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think} -rea off 
-    name: "Qwen3.5-9B-think-reaoff"
+  "Qwen3.5-9B-think-no-thinking":
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_think} ${no_thinking} 
+    name: "Qwen3.5-9B-think-no-thinking"
   "Qwen3.5-9B-think-code":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think_code}
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_think_code}
     name: "Qwen3.5-9B-think-code"
-  "Qwen3.5-9B-think-code-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_think_code} -rea off
-    name: "Qwen3.5-9B-think-code-reaoff"
+  "Qwen3.5-9B-think-code-no-thinking":
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_think_code} ${no_thinking}
+    name: "Qwen3.5-9B-think-code-no-thinking"
   "Qwen3.5-9B-instruct":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct}
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_instruct}
     name: "Qwen3.5-9B-instruct"
-  "Qwen3.5-9B-instruct-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct} -rea off
-    name: "Qwen3.5-9B-instruct-reaoff"
+  "Qwen3.5-9B-instruct-no-thinking":
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_instruct} ${no_thinking}
+    name: "Qwen3.5-9B-instruct-no-thinking"
   "Qwen3.5-9B-instruct-reasoning":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct_reasoning}
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_instruct_reasoning}
     name: "Qwen3.5-9B-instruct-reasoning"
-  "Qwen3.5-9B-instruct-reasoning-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-9B-GGUF:Q4_K_M ${qwen_instruct_reasoning} -rea off
-    name: "Qwen3.5-9B-instruct-reasoning-reaoff"
+  "Qwen3.5-9B-instruct-reasoning-no-thinking":
+    cmd: ${default_llama} ${qwen35_9b} ${qwen35_instruct_reasoning} ${no_thinking}
+    name: "Qwen3.5-9B-instruct-reasoning-no-thinking"
   "Qwen3.5-4B-think":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think} 
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_think} 
     name: "Qwen3.5-4B-think"
-  "Qwen3.5-4B-think-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think} -rea off 
-    name: "Qwen3.5-4B-think-reaoff"
+  "Qwen3.5-4B-think-no-thinking":
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_think} ${no_thinking} 
+    name: "Qwen3.5-4B-think-no-thinking"
   "Qwen3.5-4B-think-code":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think_code}
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_think_code}
     name: "Qwen3.5-4B-think-code"
-  "Qwen3.5-4B-think-code-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_think_code} -rea off
-    name: "Qwen3.5-4B-think-code-reaoff"
+  "Qwen3.5-4B-think-code-no-thinking":
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_think_code} ${no_thinking}
+    name: "Qwen3.5-4B-think-code-no-thinking"
   "Qwen3.5-4B-instruct":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct}
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_instruct}
     name: "Qwen3.5-4B-instruct"
-  "Qwen3.5-4B-instruct-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct} -rea off
-    name: "Qwen3.5-4B-instruct-reaoff"
+  "Qwen3.5-4B-instruct-no-thinking":
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_instruct} ${no_thinking}
+    name: "Qwen3.5-4B-instruct-no-thinking"
   "Qwen3.5-4B-instruct-reasoning":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct_reasoning}
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_instruct_reasoning}
     name: "Qwen3.5-4B-instruct-reasoning"
-  "Qwen3.5-4B-instruct-reasoning-reaoff":
-    cmd: ${default_llama} -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M ${qwen_instruct_reasoning} -rea off
-    name: "Qwen3.5-4B-instruct-reasoning-reaoff"
+  "Qwen3.5-4B-instruct-reasoning-no-thinking":
+    cmd: ${default_llama} ${qwen35_4b} ${qwen35_instruct_reasoning} ${no_thinking}
+    name: "Qwen3.5-4B-instruct-reasoning-no-thinking"
+  "Gemma-4-12B":
+    cmd: ${default_llama} ${gemma_4_12b} ${gemma_4_}
+    name: "Gemma-4-12B"
+  "Gemma-4-12B-no-thinking":
+    cmd: ${default_llama} ${gemma_4_12b} ${gemma_4_} ${no_thinking}
+    name: "Gemma-4-12B-no-thinking"
+  "Gemma-4-E4B":
+    cmd: ${default_llama} ${gemma_4_e4b} ${gemma_4_}
+    name: "Gemma-4-E4B"
+  "Gemma-4-E4B-no-thinking":
+    cmd: ${default_llama} ${gemma_4_e4b} ${gemma_4_} ${no_thinking}
+    name: "Gemma-4-E4B-no-thinking"
+  "Gemma-4-E2B":
+    cmd: ${default_llama} ${gemma_4_e2b} ${gemma_4_}
+    name: "Gemma-4-E2B"
+  "Gemma-4-E2B-no-thinking":
+    cmd: ${default_llama} ${gemma_4_e2b} ${gemma_4_} ${no_thinking}
+    name: "Gemma-4-E2B-no-thinking"
