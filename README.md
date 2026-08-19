@@ -29,3 +29,8 @@ export HF_TOKEN=<your_huggingface_token>
 ```
 
 TODO model config from bashrc to llama-swap -config, open notebook.
+
+
+
+
+https://huggingface.co/spaces/oobabooga/accurate-gguf-vram-calculator

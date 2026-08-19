@@ -1,6 +1,6 @@
 globalTTL: 600
 macros:
-  "default_llama": llama-server --port ${PORT} -t 12 -c 20480 -fa on -fit on -fiit 10240 --jinja --metrics --slots
+  "default_llama": llama-server --port ${PORT} -t 12 -c 30720 -ngl all -fa on -fit off --jinja --metrics --slots -lv 5
   "qwen_draft": -hfd unsloth/Qwen3.5-2B-GGUF:Q4_K_M --spec-draft-n-max 16
   "qwen_think": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
   "qwen_think_code": --temp 1.0 --top-p 0.95 --top-k 20 --min-p 0.0 --presence-penalty 1.5 --repeat-penalty 1.0 ${qwen_draft}
