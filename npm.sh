@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-npm i -g --ignore-scripts opencode-ai @earendil-works/pi-coding-agent
+npm i -g --ignore-scripts @earendil-works/pi-coding-agent
