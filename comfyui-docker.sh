@@ -42,10 +42,11 @@ EOF
 sudo docker compose pull
 sudo chown -R "$USER":"$USER" storage-models
 mkdir -p storage-models/checkpoints
-hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ./storage-models/checkpoints
-hf download Comfy-Org/z_image_turbo split_files/text_encoders/qwen_3_4b.safetensors --local-dir ./storage-models/checkpoints
-hf download Comfy-Org/z_image_turbo split_files/diffusion_models/z_image_turbo_bf16.safetensors --local-dir ./storage-models/checkpoints
-cat >~/.config/systemd/user/comfyui.service <<EOF
+cd ~ || exit
+hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
+hf download Comfy-Org/z_image_turbo split_files/text_encoders/qwen_3_4b.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
+hf download Comfy-Org/z_image_turbo split_files/diffusion_models/z_image_turbo_bf16.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
+sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
 Description=ComfyUI
 Requires=docker.service
@@ -61,5 +62,5 @@ RestartSec=5
 [Install]
 WantedBy=default.target
 EOF
-systemctl --user daemon-reload
-systemctl --user enable --now comfyui
+sudo systemctl daemon-reload
+sudo systemctl enable --now comfyui
