@@ -2,7 +2,7 @@
 
 This repo contains my local LLM setup.
 
-## Device specs
+## Device Specs
 
 This is the specs of my laptop, which I design this repo for:
 
