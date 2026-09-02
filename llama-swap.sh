@@ -8,6 +8,7 @@ cat >~/.config/systemd/user/llama-swap.service <<EOF
 Description=llama-swap
 
 [Service]
+Environment="HF_HOME=$HOME/hf-models"
 WorkingDirectory=$HOME/.local-llm-setup/llama-swap
 ExecStart=llama-swap -config config.yaml
 Restart=always
