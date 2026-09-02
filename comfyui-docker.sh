@@ -40,3 +40,6 @@ services:
               capabilities: [gpu]
 EOF
 sudo docker compose pull
+sudo chown -R "$USER":"$USER" storage-models
+mkdir -p storage-models/checkpoints
+hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ./storage-models/checkpoints
