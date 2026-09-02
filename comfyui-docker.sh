@@ -1,3 +1,8 @@
+#!/usr/bin/env bash
+
+mkdir ~/ComfyUI-Docker
+cd ~/ComfyUI-Docker || exit
+cat >docker-compose.yml <<'EOF'
 services:
   comfyui:
     init: true
@@ -33,3 +38,5 @@ services:
             - driver: nvidia
               device_ids: ["0"]
               capabilities: [gpu]
+EOF
+sudo docker compose pull
