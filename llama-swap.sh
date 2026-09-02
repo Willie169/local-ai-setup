@@ -3,3 +3,18 @@
 brew tap mostlygeek/llama-swap
 brew trust mostlygeek/llama-swap
 brew install llama-swap
+cat >~/.config/systemd/user/llama-swap.service <<EOF
+[Unit]
+Description=llama-swap
+
+[Service]
+WorkingDirectory=$HOME/.local-llm-setup/llama-swap
+ExecStart=llama-swap -config config.yaml
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now llama-swap
