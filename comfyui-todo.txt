@@ -1,1 +1,1 @@
-Stable Diffusion 1.5, Flux.2 Klein, ACE-Step 1.5, Qwen3-TTS
+Stable Diffusion 1.5, Flux.2 Klein, ACE-Step 1.5
