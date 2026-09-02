@@ -16,7 +16,3 @@ hf download unsloth/gemma-4-E4B-it-qat-GGUF mtp-gemma-4-E4B-it.gguf
 hf download unsloth/gemma-4-E2B-it-qat-GGUF gemma-4-E2B-it-qat-UD-Q4_K_XL.gguf
 hf download unsloth/gemma-4-E2B-it-qat-GGUF mmproj-BF16.gguf
 hf download unsloth/gemma-4-E2B-it-qat-GGUF mtp-gemma-4-E2B-it.gguf
-hf download Qwen/Qwen3-TTS-Tokenizer-12Hz
-hf download Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice
-hf download Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign
-hf download Qwen/Qwen3-TTS-12Hz-1.7B-Base
