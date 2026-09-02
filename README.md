@@ -121,6 +121,9 @@ Info:
 </details>
 
 
+ComfyUI
+Requires NVIDIA Container Toolkit, Docker 
+
 Add to `~/.bashrc`:
 ```
 export HF_TOKEN=<your_huggingface_token>
