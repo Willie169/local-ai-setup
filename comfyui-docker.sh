@@ -45,3 +45,21 @@ mkdir -p storage-models/checkpoints
 hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ./storage-models/checkpoints
 hf download Comfy-Org/z_image_turbo split_files/text_encoders/qwen_3_4b.safetensors --local-dir ./storage-models/checkpoints
 hf download Comfy-Org/z_image_turbo split_files/diffusion_models/z_image_turbo_bf16.safetensors --local-dir ./storage-models/checkpoints
+cat >~/.config/systemd/user/comfyui.service <<EOF
+[Unit]
+Description=ComfyUI
+Requires=docker.service
+After=docker.service
+
+[Service]
+WorkingDirectory=$HOME/ComfyUI-Docker
+ExecStart=/usr/bin/docker compose up
+ExecStop=/usr/bin/docker compose stop
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl --user daemon-reload
+systemctl --user enable --now comfyui
