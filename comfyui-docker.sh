@@ -40,19 +40,12 @@ services:
               capabilities: [gpu]
 EOF
 sudo docker compose pull
+sudo chown -R "$USER":"$USER" storage-cache
 sudo chown -R "$USER":"$USER" storage-models
+sudo chown -R "$USER":"$USER" storage-nodes
+sudo chown -R "$USER":"$USER" storage-user
 mkdir -p storage-models/checkpoints
 cd ~ || exit
-hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-hf download Comfy-Org/z_image_turbo split_files/text_encoders/qwen_3_4b.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-mv ~/ComfyUI-Docker/storage-models/checkpoints/split_files/text_encoders/qwen_3_4b.safetensors ~/ComfyUI-Docker/storage-models/checkpoints/
-rm -r ~/ComfyUI-Docker/storage-models/checkpoints/split_files
-hf download Comfy-Org/z_image_turbo split_files/diffusion_models/z_image_turbo_bf16.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-mv ~/ComfyUI-Docker/storage-models/checkpoints/split_files/diffusion_models/z_image_turbo_bf16.safetensors ~/ComfyUI-Docker/storage-models/checkpoints/
-rm -r ~/ComfyUI-Docker/storage-models/checkpoints/split_files
-hf download Comfy-Org/z_image_turbo split_files/vae/ae.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-mv ~/ComfyUI-Docker/storage-models/checkpoints/split_files/vae/ae.safetensors ~/ComfyUI-Docker/storage-models/checkpoints/
-rm -r ~/ComfyUI-Docker/storage-models/checkpoints/split_files
 sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
 Description=ComfyUI
@@ -71,3 +64,4 @@ WantedBy=default.target
 EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now comfyui
+hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints

@@ -1,1 +1,1 @@
-Stable Diffusion 1.5, Flux.2 Klein, ACE-Step 1.5
+Stable Diffusion 3.5, Flux.2 Klein, ACE-Step 1.5
