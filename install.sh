@@ -63,15 +63,15 @@ git clone https://github.com/DarioFT/ComfyUI-Qwen3-TTS.git
 cd ComfyUI-Qwen3-TTS || exit
 pip install -r requirements.txt
 cd ~/ComfyUI || exit
-hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ./models/checkpoints
-hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_aio.safetensors --local-dir ./models/checkpoints
-hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ./models/unet
-hf download black-forest-labs/FLUX.2-klein-4B vae/diffusion_pytorch_model.safetensors --local-dir ./models
-hf download Comfy-Org/z_image_turbo --include 'split_files/text_encoders' --local-dir ./models
-hf download city96/stable-diffusion-3.5-medium-gguf sd3.5_medium-Q4_K_M.gguf --local-dir ./models/unet
-hf download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ./models/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
-hf download Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ./models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
-hf download Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ./models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
+hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/models/checkpoints
+hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/models/unet
+hf download black-forest-labs/FLUX.2-klein-4B vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/models
+hf download Comfy-Org/z_image_turbo --include 'split_files/text_encoders' --local-dir ~/ComfyUI/models
+hf download city96/stable-diffusion-3.5-medium-gguf sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI/models/unet
+hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_aio.safetensors --local-dir ~/ComfyUI/models
+hf download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
+hf download Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
+hf download Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
 conda deactivate
 cat >~/.config/systemd/user/comfyui.service <<EOF
 [Unit]
