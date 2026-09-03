@@ -49,7 +49,8 @@ systemctl --user enable --now llama-swap
 npm i -g --ignore-scripts @earendil-works/pi-coding-agent
 pi install npm:@danielmeneses/pi-llama-swap
 mkdir ~/ComfyUI
-cat >~/ComfyUI/docker-compose.yml <<'EOF'
+cd ~/ComfyUI || exit
+cat >docker-compose.yml <<'EOF'
 services:
 
   comfyui:
@@ -89,7 +90,7 @@ services:
               capabilities: [gpu]
 EOF
 docker compose pull
-sudo chown "$USER":"$USER" ~/ComfyUI
+cd ~ || exit
 sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
 Description=ComfyUI
