@@ -4,10 +4,11 @@ mkdir ~/ComfyUI
 cd ~/ComfyUI || exit
 cat >docker-compose.yml <<'EOF'
 services:
+
   comfyui:
     init: true
-    container_name: comfyui-cu130
-    image: "yanwk/comfyui-boot:cu130-slim-v2"
+    container_name: comfyui-megapak
+    image: "yanwk/comfyui-boot:cu130-megapak-pt211"
     pull_policy: daily
     build:
       context: .
@@ -27,26 +28,23 @@ services:
       - "./storage-user/user-profile:/root/ComfyUI/user"
       - "./storage-user/user-scripts:/root/user-scripts"
     environment:
-      - CLI_ARGS=--listen
-      - HF_TOKEN
+      - CLI_ARGS=
     security_opt:
-      - "label=type:nvidia_container_t"
+      # - "label=type:nvidia_container_t"
+      - "label=disable"
+      - "seccomp=unconfined"
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ["0"]
+              device_ids: ['0']
               capabilities: [gpu]
 EOF
 sudo docker compose pull
-sudo chown -R "$USER":"$USER" storage-cache
-sudo chown -R "$USER":"$USER" storage-models
-sudo chown -R "$USER":"$USER" storage-nodes
-sudo chown -R "$USER":"$USER" storage-user
-cd storage-nodes/custom_nodes || exit
-git clone https://github.com/city96/ComfyUI-GGUF.git
 cd ~ || exit
+chmod 777 ~/ComfyUI
+chmod u+s ~/ComfyUI
 sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
 Description=ComfyUI
