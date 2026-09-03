@@ -45,16 +45,6 @@ sudo docker compose pull
 cd ~ || exit
 sudo chmod -R 777 ~/ComfyUI
 sudo chmod u+s ~/ComfyUI
-hf download hf://stable-diffusion-v1-5/stable-diffusion-v1-5/v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/storage-models/models/checkpoints
-hf download hf://unsloth/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
-hf download hf://city96/stable-diffusion-3.5-medium-gguf/sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
-hf download hf://Serveurperso/ACE-Step-1.5-GGUF/acestep-v15-sft-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
-hf download hf://Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
-hf download hf://Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-CustomVoice
-hf download hf://Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-VoiceDesign
-hf download hf://Qwen/Qwen3-TTS-12Hz-1.7B-Base --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-Base
-hf download hf://Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
-hf download hf://Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
 sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
 Description=ComfyUI
@@ -73,3 +63,18 @@ WantedBy=default.target
 EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now comfyui
+hf download hf://stable-diffusion-v1-5/stable-diffusion-v1-5/v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/storage-models/models/checkpoints
+hf download hf://unsloth/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
+hf download hf://black-forest-labs/FLUX.2-klein-4B/vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/storage-models/models/vae
+hf download hf://Comfy-Org/z_image_turbo/split_files/text_encoders/qwen_3_4b.safetensors --local-dir ~/ComfyUI/storage-models/models/text_encoders
+mv ~/ComfyUI/storage-models/models/text_encoders/split_files/text_encoders/qwen_3_4b.safetensors ~/ComfyUI/storage-models/models/text_encoders/
+rm -rf ~/ComfyUI/storage-models/models/text_encoders/split_files
+
+hf download hf://city96/stable-diffusion-3.5-medium-gguf/sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
+hf download hf://Serveurperso/ACE-Step-1.5-GGUF/acestep-v15-sft-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
+hf download hf://Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
+hf download hf://Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-CustomVoice
+hf download hf://Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-VoiceDesign
+hf download hf://Qwen/Qwen3-TTS-12Hz-1.7B-Base --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-1.7B-Base
+hf download hf://Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
+hf download hf://Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ~/ComfyUI/storage-models/models/TTS/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
