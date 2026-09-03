@@ -5,22 +5,11 @@ export HF_HOME="$HOME/hf-models"
 export CUDA_SCALE_LAUNCH_QUEUES=4x
 export GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
 
-update_llm() {
+update_local_ai() {
   (
     cd ~/.local-llm-setup || exit
     git reset --hard
     git pull --rebase
     git clean -fd
   )
-}
-
-# open-notebook() {
-#   (
-#     cd ~/open-notebook || exit
-#     docker compose "$@"
-#   )
-# }
-
-llama_swap() {
-  llama-swap --config ~/.local-llm-setup/llama-swap/config.yaml
 }
