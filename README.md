@@ -138,10 +138,8 @@ LOGO=ubuntu-logo
 
 ## Prerequisites
 
-1. `docker` installed with `$USER` in `docker` group.
-2. `uv` and `brew` installed.
-3. Proper NVIDIA GPU drivers installed.
-4. NVIDIA Container Toolkit installed and configured for Docker.
+1. `uv`, `conda` ([miniforge](https://github.com/conda-forge/miniforge) recommended), and `brew` installed.
+2. NVIDIA drivers and CUDA installed.
 
 Refer to my [ubuntu-setup-with-vnc-and-gpu](https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu) repo for how to install and configure them.
 
