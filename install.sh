@@ -88,9 +88,8 @@ services:
               device_ids: ['0']
               capabilities: [gpu]
 EOF
-sudo docker compose pull
-sudo chmod -R 777 ~/ComfyUI
-sudo chmod u+s ~/ComfyUI
+docker compose pull
+sudo chown "$USER":"$USER" ~/ComfyUI
 sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
 Description=ComfyUI
