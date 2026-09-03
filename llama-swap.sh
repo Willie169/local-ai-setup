@@ -10,7 +10,7 @@ Description=llama-swap
 [Service]
 Environment="HF_HOME=$HOME/hf-models"
 WorkingDirectory=$HOME/.local-llm-setup/llama-swap
-ExecStart=llama-swap -config config.yaml
+ExecStart=/home/linuxbrew/.linuxbrew/bin/llama-swap -config config.yaml
 Restart=always
 RestartSec=5
 
