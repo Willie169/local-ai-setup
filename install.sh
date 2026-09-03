@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+sudo apt update
+sudo DEBIAN_FRONTEND=noninteractive apt install build-essential cmake git libssl-dev -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+git clone https://github.com/Willie169/local-ai-setup.git ~/.local-ai-setup
 uv tool install huggingface_hub
 mkdir ~/hf-models
 export HF_HOME="$HOME/hf-models"
 cd ~ || exit
-sudo apt update
-sudo DEBIAN_FRONTEND=noninteractive apt install build-essential cmake git libssl-dev -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
 git clone https://github.com/ggml-org/llama.cpp.git
 cd llama.cpp || exit
 cmake -B build -DGGML_CUDA=ON
@@ -35,7 +36,7 @@ Description=llama-swap
 
 [Service]
 Environment="HF_HOME=$HOME/hf-models"
-WorkingDirectory=$HOME/.local-llm-setup/llama-swap
+WorkingDirectory=$HOME/.local-ai-setup/llama-swap
 ExecStart=/home/linuxbrew/.linuxbrew/bin/llama-swap -config config.yaml
 Restart=always
 RestartSec=5

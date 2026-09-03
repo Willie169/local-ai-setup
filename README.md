@@ -1,6 +1,6 @@
-# local-llm-setup
+# local-ai-setup
 
-This repo contains my local LLM setup.
+This repo contains my local AI setup.
 
 ## Device Specs
 
@@ -119,40 +119,50 @@ Info:
     inxi: 3.3.40
 </code></pre>
 </details>
+<details><summary><code>cat /etc/os-release</code></summary>
+<pre><code>PRETTY_NAME="Ubuntu 26.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04.1 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+</code></pre>
+</details>
 
+## Prerequisites
 
-ComfyUI
-Requires NVIDIA Container Toolkit, Docker 
+1. `docker`, `uv` and `brew` installed.
+2. Proper NVIDIA GPU drivers installed.
+3. NVIDIA Container Toolkit installed and configured for Docker.
 
-Add to `~/.bashrc`:
+Refer to my [ubuntu-setup-with-vnc-and-gpu](https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu) repo for how to install and configure them.
+
+## Installation
+
+Obtain a Hugging Face token and export it before running the installation script is recommended for faster download:
 ```
 export HF_TOKEN=<your_huggingface_token>
-. "$HOME/.local-llm-setup/bashrc.sh"
+```
+Run the installation script in this repo:
+```
+./install.sh
+```
+And add the following to your `~/.bashrc`:
+```
+[[ -f "$HOME/.local-ai-setup/bashrc.sh" ]] && . "$HOME/.local-ai-setup/bashrc.sh"
 ```
 
-## llama.cpp
+## Update
 
-The script uses CUDA backend.
+Run:
 ```
-./llama-cpp.sh
-```
-
-## Download Models
-
-```
-export HF_TOKEN=<your_huggingface_token>
-./download-models.sh
+update_local_ai_setup
 ```
 
-## llama-swap
-
-```
-./llama-swap.sh
-```
-
-TODO model config from bashrc to llama-swap -config, open notebook.
-
-
-
-
-https://huggingface.co/spaces/oobabooga/accurate-gguf-vram-calculator
