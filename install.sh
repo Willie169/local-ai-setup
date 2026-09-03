@@ -79,8 +79,7 @@ Description=ComfyUI
 
 [Service]
 WorkingDirectory=$HOME/ComfyUI
-ExecStart=conda activate comfyui && python main.py
-ExecStop=conda deactivate
+ExecStart=$HOME/conda/envs/comfyui/bin/python main.py
 Restart=always
 RestartSec=5
 
