@@ -43,8 +43,8 @@ services:
 EOF
 sudo docker compose pull
 cd ~ || exit
-chmod 777 ~/ComfyUI
-chmod u+s ~/ComfyUI
+sudo chmod -R 777 ~/ComfyUI
+sudo chmod u+s ~/ComfyUI
 hf download hf://stable-diffusion-v1-5/stable-diffusion-v1-5/v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/storage-models/models/checkpoints
 hf download hf://unsloth/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
 hf download hf://city96/stable-diffusion-3.5-medium-gguf/sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
