@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-mkdir ~/ComfyUI-Docker
-cd ~/ComfyUI-Docker || exit
+mkdir ~/ComfyUI
+cd ~/ComfyUI || exit
 cat >docker-compose.yml <<'EOF'
 services:
   comfyui:
@@ -45,6 +45,8 @@ sudo chown -R "$USER":"$USER" storage-models
 sudo chown -R "$USER":"$USER" storage-nodes
 sudo chown -R "$USER":"$USER" storage-user
 mkdir -p storage-models/checkpoints
+cd storage-nodes/custom_nodes || exit
+git clone https://github.com/city96/ComfyUI-GGUF.git
 cd ~ || exit
 sudo tee /etc/systemd/system/comfyui.service >/dev/null <<EOF
 [Unit]
@@ -53,7 +55,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-WorkingDirectory=$HOME/ComfyUI-Docker
+WorkingDirectory=$HOME/ComfyUI
 ExecStart=/usr/bin/docker compose up
 ExecStop=/usr/bin/docker compose stop
 Restart=always
@@ -64,7 +66,7 @@ WantedBy=default.target
 EOF
 sudo systemctl daemon-reload
 sudo systemctl enable --now comfyui
-hf download hf://stable-diffusion-v1-5/stable-diffusion-v1-5/v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-hf download hf://unsloth/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-hf download hf://city96/stable-diffusion-3.5-medium-gguf/sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
-hf download hf://Serveurperso/ACE-Step-1.5-GGUF/acestep-v15-sft-Q4_K_M.gguf --local-dir ~/ComfyUI-Docker/storage-models/checkpoints
+hf download hf://stable-diffusion-v1-5/stable-diffusion-v1-5/v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/storage-models/checkpoints
+hf download hf://unsloth/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/checkpoints
+hf download hf://city96/stable-diffusion-3.5-medium-gguf/sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/checkpoints
+hf download hf://Serveurperso/ACE-Step-1.5-GGUF/acestep-v15-sft-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/checkpoints
