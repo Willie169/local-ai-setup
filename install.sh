@@ -111,7 +111,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now comfyui
 hf download hf://stable-diffusion-v1-5/stable-diffusion-v1-5/v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/storage-models/models/checkpoints
 hf download hf://unsloth/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/storage-models/models/unet
-hf download hf://black-forest-labs/FLUX.2-klein-4B/vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/storage-models/models/vae
+hf download hf://black-forest-labs/FLUX.2-klein-4B/vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/storage-models/models
 hf download hf://Comfy-Org/z_image_turbo/split_files/text_encoders/qwen_3_4b.safetensors --local-dir ~/ComfyUI/storage-models/models/text_encoders
 mv ~/ComfyUI/storage-models/models/text_encoders/split_files/text_encoders/qwen_3_4b.safetensors ~/ComfyUI/storage-models/models/text_encoders/
 rm -rf ~/ComfyUI/storage-models/models/text_encoders/split_files
