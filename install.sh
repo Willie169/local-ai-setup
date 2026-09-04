@@ -57,6 +57,8 @@ cat >~/ComfyUI/user/environment.yml <<'EOF'
 name: comfyui
 channels:
   - conda-forge
+  - pytorch
+  - pypi
 dependencies:
   - python=3.13
   - pip
@@ -68,11 +70,13 @@ dependencies:
       - -r ../custom_nodes/ComfyUI-Crystools/requirements.txt
       - -r ../custom_nodes/ComfyUI-GGUF/requirements.txt
       - -r ../custom_nodes/ComfyUI-Qwen3-TTS/requirements.txt
+      - -r ../custom_nodes/ComfyUI-Whisper/requirements.txt
 EOF
 cd ~/ComfyUI/custom_nodes || exit
 git clone https://github.com/Willie169/ComfyUI-Crystools.git
 git clone https://github.com/city96/ComfyUI-GGUF.git
 git clone https://github.com/DarioFT/ComfyUI-Qwen3-TTS.git
+git clone https://github.com/yuvraj108c/ComfyUI-Whisper.git
 cd ~/ComfyUI || exit
 conda env create -f user/environment.yml
 hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/models/checkpoints

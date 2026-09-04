@@ -160,9 +160,13 @@ And add the following to your `~/.bashrc`:
 
 ## Update
 
-Run:
+Update this repo:
 ```
 update_local_ai_setup
+```
+Update ComfyUI:
+```
+update_comfyui
 ```
 
 ## My ComfyUI Workflows

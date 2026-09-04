@@ -12,23 +12,23 @@ update_local_ai_setup() {
     git pull --rebase
     git clean -fd
   )
+}
+
+update_comfyui() {
   (
     cd ~/ComfyUI || exit
     git reset --hard
     git pull --rebase
     git clean -fd
-    cd ~/ComfyUI/custom_nodes/ComfyUI-Crystools || exit
-    git reset --hard
-    git pull --rebase
-    git clean -fd
-    cd ~/ComfyUI/custom_nodes/ComfyUI-GGUF || exit
-    git reset --hard
-    git pull --rebase
-    git clean -fd
-    cd ~/ComfyUI/custom_nodes/ComfyUI-Qwen3-TTS || exit
-    git reset --hard
-    git pull --rebase
-    git clean -fd
+    cd ~/ComfyUI/custom_nodes || exit
+    shopt -s nullglob
+    for d in *; do
+      test -d ~/ComfyUI/"$d/.git" || continue
+      cd ~/ComfyUI/"$d" || continue
+      git reset --hard
+      git pull --rebase
+      git clean -fd
+    done
     cd ~/ComfyUI || exit
     conda env update -f user/environment.yml --prune
   )
