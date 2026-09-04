@@ -92,7 +92,7 @@ conda run -n comfyui -- python -c '
 from pathlib import Path
 from whisper import _download, _MODELS
 
-_download(_MODELS["medium"], str(Path("~/ComfyUI/models/stt/whisper").expanduser()), False)
+_download(_MODELS["small"], str(Path("~/ComfyUI/models/stt/whisper").expanduser()), False)
 '
 cat >~/.config/systemd/user/comfyui.service <<EOF
 [Unit]
