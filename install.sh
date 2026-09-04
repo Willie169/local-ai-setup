@@ -55,6 +55,10 @@ cd ~/ComfyUI || exit
 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
 pip install -r requirements.txt
 cd ~/ComfyUI/custom_nodes || exit
+git clone https://github.com/crystian/comfyui-crystools.git
+cd comfyui-crystools || exit
+pip install -r requirements.txt
+cd ~/ComfyUI/custom_nodes || exit
 git clone https://github.com/city96/ComfyUI-GGUF.git
 cd ComfyUI-GGUF || exit
 pip install -r requirements.txt
