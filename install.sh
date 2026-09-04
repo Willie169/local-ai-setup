@@ -68,7 +68,7 @@ dependencies:
       - -r ../custom_nodes/ComfyUI-Qwen3-TTS/requirements.txt
 EOF
 cd ~/ComfyUI/custom_nodes || exit
-git clone https://github.com/crystian/comfyui-crystools.git
+git clone https://github.com/Willie169/ComfyUI-Crystools.git
 git clone https://github.com/city96/ComfyUI-GGUF.git
 git clone https://github.com/DarioFT/ComfyUI-Qwen3-TTS.git
 cd ~/ComfyUI || exit
