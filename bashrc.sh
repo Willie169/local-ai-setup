@@ -17,7 +17,7 @@ update_local_ai_setup() {
     git reset --hard
     git pull --rebase
     git clean -fd
-    cd ~/ComfyUI/custom_nodes/comfyui-crystools || exit
+    cd ~/ComfyUI/custom_nodes/ComfyUI-Crystools || exit
     git reset --hard
     git pull --rebase
     git clean -fd

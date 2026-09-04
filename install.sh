@@ -64,7 +64,7 @@ dependencies:
       - torchvision --extra-index-url https://download.pytorch.org/whl/cu130
       - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
       - -r ../requirements.txt
-      - -r ../custom_nodes/comfyui-crystools/requirements.txt
+      - -r ../custom_nodes/ComfyUI-Crystools/requirements.txt
       - -r ../custom_nodes/ComfyUI-GGUF/requirements.txt
       - -r ../custom_nodes/ComfyUI-Qwen3-TTS/requirements.txt
 EOF
