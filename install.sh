@@ -37,6 +37,7 @@ Description=llama-swap
 
 [Service]
 Environment="HF_HOME=$HOME/hf-models"
+Environment="PATH=$HOME/llama.cpp/build/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
 WorkingDirectory=$HOME/.local-ai-setup/llama-swap
 ExecStart=/home/linuxbrew/.linuxbrew/bin/llama-swap -config config.yaml
 Restart=always
