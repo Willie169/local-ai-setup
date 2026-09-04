@@ -51,22 +51,28 @@ pi install npm:@danielmeneses/pi-llama-swap
 conda create --name comfyui python=3.13 -y
 conda activate comfyui
 git clone https://github.com/Comfy-Org/ComfyUI.git
-cd ~/ComfyUI || exit
-pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
-pip install -r requirements.txt
+cat >~/ComfyUI/user/environment.yml <<'EOF'
+name: comfyui
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      - torch --extra-index-url https://download.pytorch.org/whl/cu130
+      - torchvision --extra-index-url https://download.pytorch.org/whl/cu130
+      - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
+      - -r ../requirements.txt
+      - -r ../custom_nodes/comfyui-crystools/requirements.txt
+      - -r ../custom_nodes/ComfyUI-GGUF/requirements.txt
+      - -r ../custom_nodes/ComfyUI-Qwen3-TTS/requirements.txt
+EOF
 cd ~/ComfyUI/custom_nodes || exit
 git clone https://github.com/crystian/comfyui-crystools.git
-cd comfyui-crystools || exit
-pip install -r requirements.txt
-cd ~/ComfyUI/custom_nodes || exit
 git clone https://github.com/city96/ComfyUI-GGUF.git
-cd ComfyUI-GGUF || exit
-pip install -r requirements.txt
-cd ~/ComfyUI/custom_nodes || exit
 git clone https://github.com/DarioFT/ComfyUI-Qwen3-TTS.git
-cd ComfyUI-Qwen3-TTS || exit
-pip install -r requirements.txt
 cd ~/ComfyUI || exit
+conda env create -f user/environment.yml
 hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/models/checkpoints
 hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/models/unet
 hf download black-forest-labs/FLUX.2-klein-4B vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/models
@@ -76,7 +82,6 @@ hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_
 hf download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
 hf download Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
 hf download Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
-conda deactivate
 cat >~/.config/systemd/user/comfyui.service <<EOF
 [Unit]
 Description=ComfyUI
