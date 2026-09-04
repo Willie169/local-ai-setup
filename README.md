@@ -165,3 +165,7 @@ Run:
 update_local_ai_setup
 ```
 
+## My ComfyUI Workflows
+
+My ComfyUI workflows are in [workflows](workflows).
+
