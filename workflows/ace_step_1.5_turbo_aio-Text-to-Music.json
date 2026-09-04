@@ -1,0 +1,640 @@
+{
+  "id": "bc280ea1-da4e-42c3-8cf7-f4d2881881db",
+  "revision": 0,
+  "last_node_id": 13,
+  "last_link_id": 20,
+  "nodes": [
+    {
+      "id": 9,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        843.4733796540638,
+        -672.1849048507069
+      ],
+      "size": [
+        164.8375,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 9
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecodeAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.11.1"
+      }
+    },
+    {
+      "id": 1,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -279.8229674657921,
+        -1000.1583073408772
+      ],
+      "size": [
+        270,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            19
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "ace_step_1.5_turbo_aio.safetensors"
+      ],
+      "widgets_values_named": {
+        "ckpt_name": "ace_step_1.5_turbo_aio.safetensors"
+      }
+    },
+    {
+      "id": 13,
+      "type": "ModelSamplingAuraFlow",
+      "pos": [
+        53.626485881972876,
+        -1002.9466463004467
+      ],
+      "size": [
+        330,
+        110
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingAuraFlow",
+        "cnr_id": "comfy-core",
+        "ver": "0.11.1",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        3
+      ],
+      "widgets_values_named": {
+        "shift": 3
+      }
+    },
+    {
+      "id": 10,
+      "type": "ConditioningZeroOut",
+      "pos": [
+        577.9053297816632,
+        -770.6271512336676
+      ],
+      "size": [
+        204.0999984741211,
+        26
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ConditioningZeroOut"
+      }
+    },
+    {
+      "id": 6,
+      "type": "KSampler",
+      "pos": [
+        832.8004320232585,
+        -991.4943851464584
+      ],
+      "size": [
+        270,
+        262
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 20
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 4
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 14
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 7
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        304785935353111,
+        "randomize",
+        8,
+        1,
+        "euler",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 304785935353111,
+        "control_after_generate": "randomize",
+        "steps": 8,
+        "cfg": 1,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 12,
+      "type": "PrimitiveInt",
+      "pos": [
+        -277.823535125865,
+        -844.3334602772484
+      ],
+      "size": [
+        270,
+        110
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            17,
+            18
+          ]
+        }
+      ],
+      "title": "Int (Seed)",
+      "properties": {
+        "Node name for S&R": "PrimitiveInt",
+        "cnr_id": "comfy-core",
+        "ver": "0.18.1",
+        "enableTabs": false,
+        "tabWidth": 65,
+        "tabXOffset": 10,
+        "hasSecondTab": false,
+        "secondTabText": "Send Back",
+        "secondTabOffset": 80,
+        "secondTabWidth": 65
+      },
+      "widgets_values": [
+        610247883703431,
+        "randomize"
+      ],
+      "widgets_values_named": {
+        "value": 610247883703431,
+        "fixed": "randomize"
+      }
+    },
+    {
+      "id": 11,
+      "type": "PrimitiveNode",
+      "pos": [
+        -281.5781399818833,
+        -676.332927112805
+      ],
+      "size": [
+        280,
+        110
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "widget": {
+            "name": "duration"
+          },
+          "links": [
+            15,
+            16
+          ]
+        }
+      ],
+      "title": "Float (Duration)",
+      "properties": {
+        "Run widget replace on values": false
+      },
+      "widgets_values": [
+        30,
+        "fixed"
+      ],
+      "widgets_values_named": {
+        "value": 30,
+        "control_after_generate": "fixed"
+      }
+    },
+    {
+      "id": 3,
+      "type": "TextEncodeAceStepAudio1.5",
+      "pos": [
+        54.80533178241024,
+        -781.551227044022
+      ],
+      "size": [
+        400,
+        454
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 1
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 17
+        },
+        {
+          "name": "duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "duration"
+          },
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            4,
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeAceStepAudio1.5"
+      },
+      "widgets_values": [
+        "Rap",
+        "We present ACE-Step v1.5, a highly efficient open-source music foundation model that brings commercial-grade generation to consumer hardware. On commonly used evaluation metrics, ACE-Step v1.5 achieves quality beyond most commercial music models while remaining extremely fast—under 2 seconds per full song on an A100 and under 10 seconds on an RTX 3090. The model runs locally with less than 4GB of VRAM, and supports lightweight personalization: users can train a LoRA from just a few songs to capture their own style.",
+        1085138122016916,
+        "randomize",
+        120,
+        30,
+        "4",
+        "en",
+        "C major",
+        true,
+        2,
+        0.85,
+        0.9,
+        0,
+        0
+      ],
+      "widgets_values_named": {
+        "tags": "Rap",
+        "lyrics": "We present ACE-Step v1.5, a highly efficient open-source music foundation model that brings commercial-grade generation to consumer hardware. On commonly used evaluation metrics, ACE-Step v1.5 achieves quality beyond most commercial music models while remaining extremely fast—under 2 seconds per full song on an A100 and under 10 seconds on an RTX 3090. The model runs locally with less than 4GB of VRAM, and supports lightweight personalization: users can train a LoRA from just a few songs to capture their own style.",
+        "seed": 1085138122016916,
+        "control_after_generate": "randomize",
+        "bpm": 120,
+        "duration": 30,
+        "timesignature": "4",
+        "language": "en",
+        "keyscale": "C major",
+        "generate_audio_codes": true,
+        "cfg_scale": 2,
+        "temperature": 0.85,
+        "top_p": 0.9,
+        "top_k": 0,
+        "min_p": 0
+      }
+    },
+    {
+      "id": 5,
+      "type": "EmptyAceStep1.5LatentAudio",
+      "pos": [
+        479.4630833987031,
+        -676.3285198132552
+      ],
+      "size": [
+        314.90390625,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "seconds"
+          },
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyAceStep1.5LatentAudio",
+        "cnr_id": "comfy-core",
+        "ver": "0.11.1"
+      },
+      "widgets_values": [
+        30,
+        1
+      ],
+      "widgets_values_named": {
+        "seconds": 30,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 8,
+      "type": "SaveAudioAdvanced",
+      "pos": [
+        839.4553287812902,
+        -567.7155821585851
+      ],
+      "size": [
+        270,
+        136
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "audio/ComfyUI",
+        "flac"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "audio/ComfyUI",
+        "format": "flac"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      1,
+      3,
+      0,
+      "CLIP"
+    ],
+    [
+      4,
+      3,
+      0,
+      6,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      5,
+      0,
+      6,
+      3,
+      "LATENT"
+    ],
+    [
+      8,
+      1,
+      2,
+      9,
+      1,
+      "VAE"
+    ],
+    [
+      9,
+      6,
+      0,
+      9,
+      0,
+      "LATENT"
+    ],
+    [
+      10,
+      9,
+      0,
+      8,
+      0,
+      "AUDIO"
+    ],
+    [
+      13,
+      3,
+      0,
+      10,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      14,
+      10,
+      0,
+      6,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      15,
+      11,
+      0,
+      3,
+      2,
+      "FLOAT"
+    ],
+    [
+      16,
+      11,
+      0,
+      5,
+      0,
+      "FLOAT"
+    ],
+    [
+      17,
+      12,
+      0,
+      3,
+      1,
+      "INT"
+    ],
+    [
+      18,
+      12,
+      0,
+      6,
+      4,
+      "INT"
+    ],
+    [
+      19,
+      1,
+      0,
+      13,
+      0,
+      "MODEL"
+    ],
+    [
+      20,
+      13,
+      0,
+      6,
+      0,
+      "MODEL"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7964060439560444,
+      "offset": [
+        609.351908125722,
+        1220.1725216097864
+      ]
+    },
+    "frontendVersion": "1.51.9"
+  },
+  "version": 0.4
+}
