@@ -77,8 +77,7 @@ git clone https://github.com/Willie169/ComfyUI-Crystools.git
 git clone https://github.com/city96/ComfyUI-GGUF.git
 git clone https://github.com/DarioFT/ComfyUI-Qwen3-TTS.git
 git clone https://github.com/yuvraj108c/ComfyUI-Whisper.git
-cd ~/ComfyUI || exit
-conda env create -f user/environment.yml
+conda env create -f ~/ComfyUI/user/environment.yml
 hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/models/checkpoints
 hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/models/unet
 hf download black-forest-labs/FLUX.2-klein-4B vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/models
@@ -88,6 +87,13 @@ hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_
 hf download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
 hf download Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
 hf download Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
+mkdir ~/ComfyUI/models/stt/whisper
+conda run -n comfyui -- python -c '
+from pathlib import Path
+from whisper import _download, _MODELS
+
+_download(_MODELS["medium"], str(Path("~/ComfyUI/models/stt/whisper").expanduser()), False)
+'
 cat >~/.config/systemd/user/comfyui.service <<EOF
 [Unit]
 Description=ComfyUI
