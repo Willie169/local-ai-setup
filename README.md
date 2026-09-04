@@ -164,6 +164,10 @@ Update this repo:
 ```
 update_local_ai_setup
 ```
+Update llama.cpp:
+```
+update_llama_cpp
+```
 Update ComfyUI:
 ```
 update_comfyui

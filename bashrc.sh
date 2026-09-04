@@ -14,6 +14,18 @@ update_local_ai_setup() {
   )
 }
 
+update_llama_cpp() {
+  (
+    cd llama.cpp || exit
+    rm -rf build
+    git reset --hard
+    git pull --rebase
+    git clean -fd
+    cmake -B build -DGGML_CUDA=ON
+    cmake --build build --config Release
+  )
+}
+
 update_comfyui() {
   (
     cd ~/ComfyUI || exit
