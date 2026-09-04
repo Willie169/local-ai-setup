@@ -2,6 +2,7 @@
 
 sudo apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install cmake build-essential ninja-build libgomp1 git libssl-dev jq python3 python3-venv python3-pip -y -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-overwrite"
+rm -rf ~/.local-ai-setup
 git clone https://github.com/Willie169/local-ai-setup.git ~/.local-ai-setup
 uv tool install huggingface_hub
 mkdir ~/hf-models
