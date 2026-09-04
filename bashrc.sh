@@ -7,7 +7,7 @@ export GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
 
 update_local_ai_setup() {
   (
-    cd ~/.local-llm-setup || exit
+    cd ~/.local-ai-setup || exit
     git reset --hard
     git pull --rebase
     git clean -fd
