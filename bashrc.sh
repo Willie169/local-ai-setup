@@ -32,17 +32,12 @@ update_llama_cpp() {
   _update_llama_cpp
 }
 
-_update_comfyui_pre() {
+_update_comfyui() {
   (
     cd ~/ComfyUI || exit
     git reset --hard
     git pull --rebase
     git clean -fd
-  )
-}
-
-_update_comfyui() {
-  (
     local repos=(
       "Willie169/ComfyUI-Crystools"
       "city96/ComfyUI-GGUF"
@@ -101,8 +96,8 @@ _download(_MODELS["small"], str(Path("~/ComfyUI/models/stt/whisper").expanduser(
 update_comfyui() {
   update_local_ai_setup
   . ~/.local-ai-setup/bashrc.sh
-  _update_comfyui_pre
   _update_comfyui
+  systemctl --user restart comfyui
 }
 
 whisper() {
