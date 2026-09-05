@@ -14,7 +14,7 @@ update_local_ai_setup() {
   )
 }
 
-update_llama_cpp() {
+_update_llama_cpp() {
   (
     cd llama.cpp || exit
     rm -rf build
@@ -26,7 +26,13 @@ update_llama_cpp() {
   )
 }
 
-update_comfyui() {
+update_llama_cpp() {
+  update_local_ai_setup
+  . ~/.local-ai-setup/bashrc.sh
+  _update_llama_cpp
+}
+
+_update_comfyui() {
   (
     cd ~/ComfyUI || exit
     git reset --hard
@@ -44,4 +50,10 @@ update_comfyui() {
     cd ~/ComfyUI || exit
     conda env update -f user/environment.yml --prune
   )
+}
+
+update_comfyui() {
+  update_local_ai_setup
+  . ~/.local-ai-setup/bashrc.sh
+  _update_comfyui
 }
