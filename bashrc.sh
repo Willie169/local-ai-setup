@@ -66,7 +66,7 @@ _update_comfyui() {
       "Willie169/ComfyUI-Crystools"
       "city96/ComfyUI-GGUF"
       "DarioFT/ComfyUI-Qwen3-TTS"
-      "San4itos/ComfyUI-Save-Images-as-Video"
+      "Willie169/ComfyUI-Save-Images-as-Video"
       "yuvraj108c/ComfyUI-Whisper"
     )
     cat >~/ComfyUI/user/environment.yml <<'EOF'
