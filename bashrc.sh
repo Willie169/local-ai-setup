@@ -101,10 +101,10 @@ EOF
     mkdir -p ~/ComfyUI-models
     hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI-models/FLUX.2-klein-4B-GGUF
     ln -sf ~/ComfyUI-models/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf ~/ComfyUI/models/unet/flux-2-klein-4b-Q4_K_M.gguf
-    hf download Comfy-Org/vae-text-encorder-for-flux-klein-4b split_files/vae/flux2-vae.safetensors --local-dir ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b
-    ln -sf ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b/split_files/vae/flux2-vae.safetensors ~/ComfyUI/models/vae/flux2-vae.safetensors
     hf download Comfy-Org/vae-text-encorder-for-flux-klein-4b split_files/text_encoders/qwen_3_4b.safetensors --local-dir ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b
     ln -sf ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b/split_files/text_encoders/qwen_3_4b.safetensors ~/ComfyUI/models/text_encoders/qwen_3_4b.safetensors
+    hf download Comfy-Org/vae-text-encorder-for-flux-klein-4b split_files/vae/flux2-vae.safetensors --local-dir ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b
+    ln -sf ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b/split_files/vae/flux2-vae.safetensors ~/ComfyUI/models/vae/flux2-vae.safetensors
     hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_aio.safetensors --local-dir ~/ComfyUI-models/ace_step_1.5_ComfyUI_files/checkpoints
     ln -sf ~/ComfyUI-models/ace_step_1.5_ComfyUI_files/checkpoints/ace_step_1.5_turbo_aio.safetensors ~/ComfyUI/models/checkpoints/ace_step_1.5_turbo_aio.safetensors
     mkdir -p ~/ComfyUI/models/Qwen3-TTS
@@ -123,8 +123,12 @@ from whisper import _download, _MODELS
 _download(_MODELS["small"], str(Path("~/ComfyUI-models/whisper").expanduser()), False)
 '
     ln -sf ~/ComfyUI-models/whisper/small.pt ~/ComfyUI/models/stt/whisper/small.pt
-
-    # hf download Comfy-Org/Wan_2.1_ComfyUI_repackaged --include split_files/text_encoders --local-dir ~/ComfyUI/models
+    hf download Comfy-Org/Wan_2.1_ComfyUI_repackaged split_files/diffusion_models/wan2.1_t2v_1.3B_bf16.safetensors --local-dir ~/ComfyUI-models/Wan_2.1_ComfyUI_repackaged
+    ln -sf ~/ComfyUI-models/Wan_2.1_ComfyUI_repackaged/split_files/diffusion_models/wan2.1_t2v_1.3B_bf16.safetensors ~/ComfyUI/models/diffusion_models/wan2.1_t2v_1.3B_bf16.safetensors
+    hf download Comfy-Org/Wan_2.1_ComfyUI_repackaged split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors --local-dir ~/ComfyUI-models/Wan_2.1_ComfyUI_repackaged
+    ln -sf ~/ComfyUI-models/Wan_2.1_ComfyUI_repackaged/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors ~/ComfyUI/models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors
+    hf download Comfy-Org/Wan_2.1_ComfyUI_repackaged split_files/vae/wan_2.1_vae.safetensors --local-dir ~/ComfyUI-models/Wan_2.1_ComfyUI_repackaged
+    ln -sf ~/ComfyUI-models/Wan_2.1_ComfyUI_repackaged/split_files/vae/wan_2.1_vae.safetensors ~/ComfyUI/models/vae/wan_2.1_vae.safetensors
   )
 }
 
