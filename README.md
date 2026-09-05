@@ -158,9 +158,11 @@ And add the following to your `~/.bashrc`:
 [[ -f "$HOME/.local-ai-setup/bashrc.sh" ]] && . "$HOME/.local-ai-setup/bashrc.sh"
 ```
 
-## Update
+## Functions
 
-Update this repo:
+Here are the functions defined in `"$HOME/.local-ai-setup/bashrc.sh"`.
+
+Update this repo in `~/.local-ai-setup`:
 ```
 update_local_ai_setup
 ```
@@ -171,6 +173,10 @@ update_llama_cpp
 Update ComfyUI:
 ```
 update_comfyui
+```
+Run whisper in comfyui conda environment:
+```
+whisper
 ```
 
 ## My ComfyUI Workflows

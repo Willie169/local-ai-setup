@@ -57,3 +57,7 @@ update_comfyui() {
   . ~/.local-ai-setup/bashrc.sh
   _update_comfyui
 }
+
+whisper() {
+  conda run -n comfyui -- whisper "$@"
+}
