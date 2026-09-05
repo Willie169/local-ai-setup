@@ -170,6 +170,10 @@ Update llama.cpp:
 ```
 update_llama_cpp
 ```
+Update LLM models:
+```
+update_llm_models
+```
 Update ComfyUI:
 ```
 update_comfyui
