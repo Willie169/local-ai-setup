@@ -50,50 +50,10 @@ systemctl --user daemon-reload
 systemctl --user enable --now llama-swap
 npm i -g --ignore-scripts @earendil-works/pi-coding-agent
 pi install npm:@danielmeneses/pi-llama-swap
-conda create --name comfyui python=3.13 -y
-conda activate comfyui
+conda create -n comfyui python=3.13 -y
 git clone https://github.com/Comfy-Org/ComfyUI.git
-cat >~/ComfyUI/user/environment.yml <<'EOF'
-name: comfyui
-channels:
-  - conda-forge
-  - pytorch
-  - pypi
-dependencies:
-  - python=3.13
-  - pip
-  - pip:
-      - torch --extra-index-url https://download.pytorch.org/whl/cu130
-      - torchvision --extra-index-url https://download.pytorch.org/whl/cu130
-      - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
-      - -r ../requirements.txt
-      - -r ../custom_nodes/ComfyUI-Crystools/requirements.txt
-      - -r ../custom_nodes/ComfyUI-GGUF/requirements.txt
-      - -r ../custom_nodes/ComfyUI-Qwen3-TTS/requirements.txt
-      - -r ../custom_nodes/ComfyUI-Whisper/requirements.txt
-EOF
-cd ~/ComfyUI/custom_nodes || exit
-git clone https://github.com/Willie169/ComfyUI-Crystools.git
-git clone https://github.com/city96/ComfyUI-GGUF.git
-git clone https://github.com/DarioFT/ComfyUI-Qwen3-TTS.git
-git clone https://github.com/yuvraj108c/ComfyUI-Whisper.git
-conda env create -f ~/ComfyUI/user/environment.yml
-hf download stable-diffusion-v1-5/stable-diffusion-v1-5 v1-5-pruned-emaonly.safetensors --local-dir ~/ComfyUI/models/checkpoints
-hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI/models/unet
-hf download black-forest-labs/FLUX.2-klein-4B vae/diffusion_pytorch_model.safetensors --local-dir ~/ComfyUI/models
-hf download Comfy-Org/z_image_turbo --include 'split_files/text_encoders' --local-dir ~/ComfyUI/models
-hf download city96/stable-diffusion-3.5-medium-gguf sd3.5_medium-Q4_K_M.gguf --local-dir ~/ComfyUI/models/unet
-hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_aio.safetensors --local-dir ~/ComfyUI/models
-hf download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-Tokenizer-12Hz
-hf download Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-CustomVoice
-hf download Qwen/Qwen3-TTS-12Hz-0.6B-Base --local-dir ~/ComfyUI/models/Qwen3-TTS/Qwen3-TTS-12Hz-0.6B-Base
-mkdir ~/ComfyUI/models/stt/whisper
-conda run -n comfyui -- python -c '
-from pathlib import Path
-from whisper import _download, _MODELS
-
-_download(_MODELS["small"], str(Path("~/ComfyUI/models/stt/whisper").expanduser()), False)
-'
+. ~/.local-ai-setup/bashrc.sh
+_update_comfyui
 cat >~/.config/systemd/user/comfyui.service <<EOF
 [Unit]
 Description=ComfyUI
