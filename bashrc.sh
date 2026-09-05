@@ -64,9 +64,9 @@ _update_comfyui() {
     git clean -fd
     local repos=(
       "Willie169/ComfyUI-Crystools"
-      "MoonHugo/ComfyUI-FFmpeg"
       "city96/ComfyUI-GGUF"
       "DarioFT/ComfyUI-Qwen3-TTS"
+      "San4itos/ComfyUI-Save-Images-as-Video"
       "yuvraj108c/ComfyUI-Whisper"
     )
     cat >~/ComfyUI/user/environment.yml <<'EOF'
