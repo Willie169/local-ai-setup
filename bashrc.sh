@@ -106,7 +106,7 @@ EOF
     ln -sf ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b/split_files/text_encoders/qwen_3_4b.safetensors ~/ComfyUI/models/text_encoders/qwen_3_4b.safetensors
     hf download Comfy-Org/vae-text-encorder-for-flux-klein-4b split_files/vae/flux2-vae.safetensors --local-dir ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b
     ln -sf ~/ComfyUI-models/vae-text-encorder-for-flux-klein-4b/split_files/vae/flux2-vae.safetensors ~/ComfyUI/models/vae/flux2-vae.safetensors
-    hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_aio.safetensors --local-dir ~/ComfyUI-models/ace_step_1.5_ComfyUI_files/checkpoints
+    hf download Comfy-Org/ace_step_1.5_ComfyUI_files checkpoints/ace_step_1.5_turbo_aio.safetensors --local-dir ~/ComfyUI-models/ace_step_1.5_ComfyUI_files
     ln -sf ~/ComfyUI-models/ace_step_1.5_ComfyUI_files/checkpoints/ace_step_1.5_turbo_aio.safetensors ~/ComfyUI/models/checkpoints/ace_step_1.5_turbo_aio.safetensors
     mkdir -p ~/ComfyUI/models/Qwen3-TTS
     hf download Qwen/Qwen3-TTS-Tokenizer-12Hz --local-dir ~/ComfyUI-models/Qwen3-TTS-Tokenizer-12Hz
