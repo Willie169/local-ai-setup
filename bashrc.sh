@@ -82,6 +82,7 @@ dependencies:
       - torch --extra-index-url https://download.pytorch.org/whl/cu130
       - torchvision --extra-index-url https://download.pytorch.org/whl/cu130
       - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
+      - torchcodec --extra-index-url https://download.pytorch.org/whl/cu130
       - -r ../requirements.txt
 EOF
     for repo in "${repos[@]}"; do
