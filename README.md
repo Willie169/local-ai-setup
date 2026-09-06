@@ -138,9 +138,10 @@ LOGO=ubuntu-logo
 
 ## Prerequisites
 
-1. `uv`, `conda` ([miniforge](https://github.com/conda-forge/miniforge) recommended), and `brew` installed.
-2. NVIDIA drivers and CUDA installed.
-3. `ffmpeg` installed (`brew install ffmpeg` recommended).
+1. `apt`, `systemd`, and maybe other software normally available on Ubuntu.
+2. `uv`, `conda` ([miniforge](https://github.com/conda-forge/miniforge) recommended), and `brew` installed.
+3. NVIDIA drivers and CUDA installed.
+4. `ffmpeg` installed (`brew install ffmpeg` recommended).
 
 Refer to my [ubuntu-setup-with-vnc-and-gpu](https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu) repo for how to install and configure them.
 
@@ -163,6 +164,14 @@ And add the following to your `~/.bashrc`:
 
 Here are the functions defined in `"$HOME/.local-ai-setup/bashrc.sh"`.
 
+Restart llama-swap:
+```
+restart_llama_swap
+```
+Restart ComfyUI:
+```
+restart_comfyui
+```
 Update this repo in `~/.local-ai-setup`:
 ```
 update_local_ai_setup

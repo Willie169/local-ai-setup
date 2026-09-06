@@ -5,6 +5,14 @@ export HF_HOME="$HOME/hf-models"
 export CUDA_SCALE_LAUNCH_QUEUES=4x
 export GGML_CUDA_ENABLE_UNIFIED_MEMORY=1
 
+restart_llama_swap() {
+  systemctl --user restart llama-swap
+}
+
+restart_comfyui() {
+  systemctl --user restart comfyui
+}
+
 update_local_ai_setup() {
   (
     cd ~/.local-ai-setup || exit
