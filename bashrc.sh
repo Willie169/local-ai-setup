@@ -77,25 +77,13 @@ _update_comfyui() {
       "Willie169/ComfyUI-Save-Images-as-Video"
       "yuvraj108c/ComfyUI-Whisper"
     )
-    cat >~/ComfyUI/user/environment.yml <<EOF
-name: comfyui
-channels:
-  - conda-forge
-  - pytorch
-  - pypi
-dependencies:
-  - python=3.13
-  - pip
-  - pip:
-      - torch --extra-index-url https://download.pytorch.org/whl/cu130
-      - torchvision --extra-index-url https://download.pytorch.org/whl/cu130
-      - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
-      - torchcodec --extra-index-url https://download.pytorch.org/whl/cu130
-      - flash-attn --no-build-isolation --extra-index-url https://download.pytorch.org/whl/cu130
-      - -r '$HOME'/ComfyUI/requirements.txt
-EOF
     cat >~/ComfyUI/user/pip-install.sh <<EOF
 conda run -n comfyui -- python -m pip install --upgrade pip
+conda run -n comfyui -- python -m pip install torch --extra-index-url https://download.pytorch.org/whl/cu130
+conda run -n comfyui -- python -m pip install torchvision --extra-index-url https://download.pytorch.org/whl/cu130
+conda run -n comfyui -- python -m pip install torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
+conda run -n comfyui -- python -m pip install torchcodec --extra-index-url https://download.pytorch.org/whl/cu130
+conda run -n comfyui -- python -m pip install flash-attn --no-build-isolation --extra-index-url https://download.pytorch.org/whl/cu130
 conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt
 EOF
     for repo in "${repos[@]}"; do
@@ -113,7 +101,6 @@ EOF
       fi
     done
     cd ~/ComfyUI || exit
-    conda env update -f user/environment.yml --prune
     chmod +x user/pip-install.sh
     . user/pip-install.sh
     mkdir -p ~/ComfyUI-models
