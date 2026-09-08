@@ -96,7 +96,7 @@ dependencies:
 EOF
     cat >~/ComfyUI/user/pip-install.sh <<'EOF'
 conda run -n comfyui -- python -m pip install --upgrade pip
-conda run -n comfyui -- python -m pip install -r ../requirements.txt
+conda run -n comfyui -- python -m pip install -r ~/ComfyUI/requirements.txt
 EOF
     for repo in "${repos[@]}"; do
       local d="${repo#*/}"

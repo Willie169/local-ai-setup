@@ -46,7 +46,7 @@ Description=ComfyUI
 
 [Service]
 WorkingDirectory=$HOME/ComfyUI
-ExecStart=$HOME/conda/envs/comfyui/bin/python main.py
+ExecStart=$HOME/conda/envs/comfyui/bin/python main.py --use-flash-attention
 Restart=always
 RestartSec=5
 
