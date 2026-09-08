@@ -84,14 +84,13 @@ torchvision
 torchaudio
 torchcodec
 --index-url https://download.pytorch.org/whl/cu130
-
-./flash_attn-2.8.3+cu130torch2.13-cp313-cp313-linux_x86_64.whl
 EOF
     cat >~/ComfyUI/user/pip-install.sh <<EOF
 #!/usr/bin/env bash
 
 conda run -n comfyui -- python -m pip install --upgrade pip
 conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/user/requirements.txt --resume-retries 100
+conda run -n comfyui -- python -m pip install '$HOME'/ComfyUI/user/flash_attn-2.8.3+cu130torch2.13-cp313-cp313-linux_x86_64.whl
 conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt --resume-retries 100
 EOF
     for repo in "${repos[@]}"; do
