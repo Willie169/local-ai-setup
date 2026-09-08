@@ -94,9 +94,14 @@ dependencies:
       - flash-attn --extra-index-url https://download.pytorch.org/whl/cu130
       - -r ../requirements.txt
 EOF
+    cat >~/ComfyUI/user/pip-install.sh <<'EOF'
+conda run -n comfyui -- python -m pip install --upgrade pip
+conda run -n comfyui -- python -m pip install -r ../requirements.txt
+EOF
     for repo in "${repos[@]}"; do
       local d="${repo#*/}"
       echo "      - -r ../custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/environment.yml
+      echo "conda run -n comfyui -- python -m pip install -r ../custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/pip-install.sh
       if [[ -d ~/ComfyUI/custom_nodes/"$d" ]]; then
         cd ~/ComfyUI/custom_nodes/"$d" || continue
         git reset --hard
@@ -109,6 +114,7 @@ EOF
     done
     cd ~/ComfyUI || exit
     conda env update -f user/environment.yml --prune
+    . user/pip-install.sh
     mkdir -p ~/ComfyUI-models
     hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI-models/FLUX.2-klein-4B-GGUF
     ln -sf ~/ComfyUI-models/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf ~/ComfyUI/models/unet/flux-2-klein-4b-Q4_K_M.gguf
