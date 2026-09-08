@@ -102,9 +102,9 @@ EOF
         git clone "https://github.com/$repo.git"
       fi
     done
-    cd ~/ComfyUI || exit
+    cd ~/ComfyUI/user || exit
     conda run -n comfyui -- python -m pip install --upgrade pip
-    conda run -n comfyui -- python -m pip install -r ~/ComfyUI/user/requirements.txt
+    conda run -n comfyui -- python -m pip install -r requirements.txt
     mkdir -p ~/ComfyUI-models
     hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI-models/FLUX.2-klein-4B-GGUF
     ln -sf ~/ComfyUI-models/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf ~/ComfyUI/models/unet/flux-2-klein-4b-Q4_K_M.gguf
