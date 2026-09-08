@@ -77,13 +77,21 @@ _update_comfyui() {
       "Willie169/ComfyUI-Save-Images-as-Video"
       "yuvraj108c/ComfyUI-Whisper"
     )
+    cat >~/ComfyUI/user/requirements.txt <<EOF
+torch>=2.13.0,<2.14.0
+torchvision
+torchaudio
+torchcodec
+--index-url https://download.pytorch.org/whl/cu130
+
+https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.9.47/flash_attn-2.8.3+cu130torch2.13-cp313-cp313-linux_x86_64.whl
+EOF
     cat >~/ComfyUI/user/pip-install.sh <<EOF
 #!/usr/bin/env bash
 
 conda run -n comfyui -- python -m pip install --upgrade pip
-conda run -n comfyui -- python -m pip install torch torchvision torchaudio torchcodec --index-url https://download.pytorch.org/whl/cu130 --resume-retries 20
-conda run -n comfyui -- python -m pip install flash-attn --no-build-isolation --resume-retries 20
-conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt
+conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/user/requirements.txt --resume-retries 20
+conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt --resume-retries 20
 EOF
     for repo in "${repos[@]}"; do
       local d="${repo#*/}"
