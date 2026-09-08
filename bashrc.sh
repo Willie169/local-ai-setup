@@ -78,6 +78,8 @@ _update_comfyui() {
       "yuvraj108c/ComfyUI-Whisper"
     )
     cat >~/ComfyUI/user/pip-install.sh <<EOF
+#!/usr/bin/env bash
+
 conda run -n comfyui -- python -m pip install --upgrade pip
 conda run -n comfyui -- python -m pip install torch --extra-index-url https://download.pytorch.org/whl/cu130
 conda run -n comfyui -- python -m pip install torchvision --extra-index-url https://download.pytorch.org/whl/cu130
