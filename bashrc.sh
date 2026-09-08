@@ -84,19 +84,14 @@ torchvision
 torchaudio
 torchcodec
 --index-url https://download.pytorch.org/whl/cu130
-EOF
-    cat >~/ComfyUI/user/pip-install.sh <<EOF
-#!/usr/bin/env bash
 
-conda run -n comfyui -- python -m pip install --upgrade pip
-conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/user/requirements.txt --resume-retries 100
-conda run -n comfyui -- python -m pip install '$HOME'/ComfyUI/user/flash_attn-2.8.3+cu130torch2.13-cp313-cp313-linux_x86_64.whl
-conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt --resume-retries 100
+./flash_attn-2.8.3+cu130torch2.13-cp313-cp313-linux_x86_64.whl
+
+-r ../requirements.txt
 EOF
     for repo in "${repos[@]}"; do
       local d="${repo#*/}"
-      echo "      - -r '$HOME'/ComfyUI/custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/environment.yml
-      echo "conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/custom_nodes/$d/requirements.txt --resume-retries 100" >>~/ComfyUI/user/pip-install.sh
+      echo "-r ../custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/requirements.txt
       if [[ -d ~/ComfyUI/custom_nodes/"$d" ]]; then
         cd ~/ComfyUI/custom_nodes/"$d" || continue
         git reset --hard
@@ -108,8 +103,8 @@ EOF
       fi
     done
     cd ~/ComfyUI || exit
-    chmod +x user/pip-install.sh
-    . user/pip-install.sh
+    conda run -n comfyui -- python -m pip install --upgrade pip
+    conda run -n comfyui -- python -m pip install -r ~/ComfyUI/user/requirements.txt
     mkdir -p ~/ComfyUI-models
     hf download unsloth/FLUX.2-klein-4B-GGUF flux-2-klein-4b-Q4_K_M.gguf --local-dir ~/ComfyUI-models/FLUX.2-klein-4B-GGUF
     ln -sf ~/ComfyUI-models/FLUX.2-klein-4B-GGUF/flux-2-klein-4b-Q4_K_M.gguf ~/ComfyUI/models/unet/flux-2-klein-4b-Q4_K_M.gguf
