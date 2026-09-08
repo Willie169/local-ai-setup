@@ -77,7 +77,7 @@ _update_comfyui() {
       "Willie169/ComfyUI-Save-Images-as-Video"
       "yuvraj108c/ComfyUI-Whisper"
     )
-    cat >~/ComfyUI/user/environment.yml <<'EOF'
+    cat >~/ComfyUI/user/environment.yml <<EOF
 name: comfyui
 channels:
   - conda-forge
@@ -92,16 +92,16 @@ dependencies:
       - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
       - torchcodec --extra-index-url https://download.pytorch.org/whl/cu130
       - flash-attn --extra-index-url https://download.pytorch.org/whl/cu130
-      - -r ~/ComfyUI/requirements.txt
+      - -r '$HOME'/ComfyUI/requirements.txt
 EOF
-    cat >~/ComfyUI/user/pip-install.sh <<'EOF'
+    cat >~/ComfyUI/user/pip-install.sh <<EOF
 conda run -n comfyui -- python -m pip install --upgrade pip
-conda run -n comfyui -- python -m pip install -r ~/ComfyUI/requirements.txt
+conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt
 EOF
     for repo in "${repos[@]}"; do
       local d="${repo#*/}"
-      echo "      - -r ~/ComfyUI/custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/environment.yml
-      echo "conda run -n comfyui -- python -m pip install -r ~/ComfyUI/custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/pip-install.sh
+      echo "      - -r '$HOME'/ComfyUI/custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/environment.yml
+      echo "conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/custom_nodes/$d/requirements.txt" >>~/ComfyUI/user/pip-install.sh
       if [[ -d ~/ComfyUI/custom_nodes/"$d" ]]; then
         cd ~/ComfyUI/custom_nodes/"$d" || continue
         git reset --hard
