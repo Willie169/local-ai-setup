@@ -81,8 +81,8 @@ _update_comfyui() {
 #!/usr/bin/env bash
 
 conda run -n comfyui -- python -m pip install --upgrade pip
-conda run -n comfyui -- python -m pip install torch torchvision torchaudio torchcodec --index-url https://download.pytorch.org/whl/cu130
-conda run -n comfyui -- python -m pip install flash-attn --no-build-isolation
+conda run -n comfyui -- python -m pip install torch torchvision torchaudio torchcodec --index-url https://download.pytorch.org/whl/cu130 --resume-retries 20
+conda run -n comfyui -- python -m pip install flash-attn --no-build-isolation --resume-retries 20
 conda run -n comfyui -- python -m pip install -r '$HOME'/ComfyUI/requirements.txt
 EOF
     for repo in "${repos[@]}"; do
