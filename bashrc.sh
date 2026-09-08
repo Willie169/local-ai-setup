@@ -91,7 +91,7 @@ dependencies:
       - torchvision --extra-index-url https://download.pytorch.org/whl/cu130
       - torchaudio --extra-index-url https://download.pytorch.org/whl/cu130
       - torchcodec --extra-index-url https://download.pytorch.org/whl/cu130
-      - flash-attn --extra-index-url https://download.pytorch.org/whl/cu130
+      - flash-attn --no-build-isolation --extra-index-url https://download.pytorch.org/whl/cu130
       - -r '$HOME'/ComfyUI/requirements.txt
 EOF
     cat >~/ComfyUI/user/pip-install.sh <<EOF
