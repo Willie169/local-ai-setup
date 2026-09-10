@@ -188,9 +188,13 @@ Update ComfyUI:
 ```
 update_comfyui
 ```
+Reinstall ComfyUI:
+```
+reinstall_comfyui
+```
 Run whisper in comfyui conda environment:
 ```
-whisper
+whisper [args]
 ```
 
 ## My ComfyUI Workflows

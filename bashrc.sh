@@ -146,6 +146,15 @@ update_comfyui() {
   systemctl --user restart comfyui
 }
 
+reinstall_comfyui() {
+  update_local_ai_setup
+  . ~/.local-ai-setup/bashrc.sh
+  conda env remove -n comfyui -y
+  conda create -n comfyui python=3.13 -y
+  _update_comfyui
+  systemctl --user restart comfyui
+}
+
 whisper() {
   conda run -n comfyui -- whisper "$@"
 }
