@@ -143,7 +143,7 @@ LOGO=ubuntu-logo
 3. NVIDIA drivers and CUDA installed.
 4. `ffmpeg` installed (`brew install ffmpeg` recommended).
 
-Refer to my [ubuntu-setup-with-vnc-and-gpu](https://github.com/Willie169/ubuntu-setup-with-vnc-and-gpu) repo for how to install and configure them.
+Refer to my [ubuntu-setup](https://github.com/Willie169/ubuntu-setup) repo for how to install and configure them.
 
 ## Installation
 
